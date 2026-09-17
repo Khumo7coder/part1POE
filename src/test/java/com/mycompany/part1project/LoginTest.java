@@ -153,4 +153,36 @@ public class LoginTest {
                 user.registerUser()
         );
     }
+
+    @Test
+    public void testSuccessfulLoginMessage() {
+        Login user = new Login(
+                "kyl_1",
+                "Ch&&sec@ke99!",
+                "+27838968976",
+                "John",
+                "Doe"
+        );
+
+        assertEquals(
+                "Welcome John, Doe it is great to see you again.",
+                user.returnLoginStatus(true)
+        );
+    }
+
+    @Test
+    public void testUnsuccessfulLoginMessage() {
+        Login user = new Login(
+                "kyl_1",
+                "Ch&&sec@ke99!",
+                "+27838968976",
+                "John",
+                "Doe"
+        );
+
+        assertEquals(
+                "Username or password incorrect, please try again.",
+                user.returnLoginStatus(false)
+        );
+    }
 }
