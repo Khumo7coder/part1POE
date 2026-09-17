@@ -80,6 +80,31 @@ public class LoginTest {
                 "Doe"
         );
 
-        assertFalse(user.checkCellPhoneNumber());
+      assertFalse(user.checkCellPhoneNumber());
     }
-}
+
+    @Test
+    public void testLoginSuccessful() {
+        Login user = new Login(
+                "kyl_1",
+                "Ch&&sec@ke99!",
+                "+27838968976",
+                "John",
+                "Doe"
+        );
+        assertTrue(user.loginUser("kyl_1", "Ch&&sec@ke99!"));
+    }
+
+    @Test
+    public void testLoginUnsuccessful() {
+        Login user = new Login(
+                "kyl_1",
+                "Ch&&sec@ke99!",
+                "+27838968976",
+                "John",
+                "Doe"
+        );
+
+        assertFalse(user.loginUser("wrong", "wrong"));
+    }
+    }
