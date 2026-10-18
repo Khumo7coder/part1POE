@@ -5,6 +5,10 @@
 
 
 package com.mycompany.part1project;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
  import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +123,7 @@ public class Message {
                 return "Press 0 to delete the message.";
 
             case "3":
-                return "Message successfully stored.";
+    return storeMessage();
 
             default:
                 return "Invalid option. Please choose 1, 2, or 3.";
@@ -165,4 +169,65 @@ public class Message {
     public int getMessageNumber() {
         return messageNumber;
     }
+    public String storeMessage() {
+    Path filePath = Path.of("messages.json");
+
+    try {
+        String existingData = "[]";
+
+        if (Files.exists(filePath)) {
+            existingData = Files.readString(
+                    filePath, StandardCharsets.UTF_8
+            ).trim();
+
+            if (!existingData.startsWith("[")
+                    || !existingData.endsWith("]")) {
+                return "Unable to store message: invalid JSON file.";
+            }
+        }
+
+        String messageData = "{"
+                + "\"messageID\":\"" + escapeJson(messageID) + "\","
+                + "\"messageNumber\":" + messageNumber + ","
+                + "\"recipient\":\"" + escapeJson(recipient) + "\","
+                + "\"message\":\"" + escapeJson(message) + "\","
+                + "\"messageHash\":\"" + escapeJson(createMessageHash()) + "\""
+                + "}";
+
+        String contents = existingData.substring(
+                1, existingData.length() - 1
+        ).trim();
+
+        String updatedData;
+
+        if (contents.isEmpty()) {
+            updatedData = "[" + messageData + "]";
+        } else {
+            updatedData = "[" + contents + "," + messageData + "]";
+        }
+
+        Files.writeString(
+                filePath,
+                updatedData,
+                StandardCharsets.UTF_8
+        );
+
+        return "Message successfully stored.";
+
+    } catch (IOException e) {
+        return "Unable to store message: " + e.getMessage();
+    }
+}
+
+private String escapeJson(String value) {
+    if (value == null) {
+        return "";
+    }
+
+    return value.replace("\\", "\\\\")
+            .replace("\"", "\\\"")
+            .replace("\n", "\\n")
+            .replace("\r", "\\r")
+            .replace("\t", "\\t");
+}
 }
