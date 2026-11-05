@@ -1,1 +1,55 @@
-[{"messageID":"6561182460","messageNumber":1,"recipient":"+27718693002","message":"QuickChat is working correctly","messageHash":"65:1:QUICKCHATCORRECTLY"},{"messageID":"6884038199","messageNumber":1,"recipient":"+27718693002","message":"Stored QuickChat message","messageHash":"68:1:STOREDMESSAGE"},{"messageID":"6338176760","messageNumber":1,"recipient":"+27718693002","message":"Stored QuickChat message","messageHash":"63:1:STOREDMESSAGE"}]
+[
+  {
+    "messageID": "6561182460",
+    "recipient": "+27718693002",
+    "message": "QuickChat is working correctly",
+    "messageNumber": 1
+  },
+  {
+    "messageID": "6884038199",
+    "recipient": "+27718693002",
+    "message": "Stored QuickChat message",
+    "messageNumber": 1
+  },
+  {
+    "messageID": "6338176760",
+    "recipient": "+27718693002",
+    "message": "Stored QuickChat message",
+    "messageNumber": 1
+  },
+  {
+    "messageID": "2712159751",
+    "sender": "",
+    "recipient": "+27718693002",
+    "message": "Stored QuickChat message",
+    "messageNumber": 1
+  },
+  {
+    "messageID": "2787870437",
+    "sender": "",
+    "recipient": "+27718693002",
+    "message": "Stored QuickChat message",
+    "messageNumber": 1
+  },
+  {
+    "messageID": "2453679855",
+    "sender": "+27829723494",
+    "recipient": "+27838884567",
+    "message": "Where are you? You are late! I asked you to be on time.",
+    "messageNumber": 1
+  },
+  {
+    "messageID": "3019741646",
+    "sender": "",
+    "recipient": "+27718693002",
+    "message": "Stored QuickChat message",
+    "messageNumber": 1
+  },
+  {
+    "messageID": "6355631684",
+    "sender": "",
+    "recipient": "+27718693002",
+    "message": "Stored QuickChat message",
+    "messageNumber": 1
+  }
+]
