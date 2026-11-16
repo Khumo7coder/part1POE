@@ -217,58 +217,62 @@ public class MessageManager {
 
     // Deletes a stored message using its hash.
     public String deleteMessageByHash(String messageHash) {
-        int foundIndex = -1;
+    int foundIndex = -1;
 
-        for (int i = 0; i < storedMessages.length; i++) {
-            if (storedMessages[i].getMessageHash()
-                    .equalsIgnoreCase(messageHash)) {
-                foundIndex = i;
-                break;
-            }
-        }
-
-        if (foundIndex == -1) {
-            return "Message hash not found.";
-        }
-
-        String deletedMessage = storedMessages[foundIndex].getMessage();
-
-        Message[] updatedMessages =
-                new Message[storedMessages.length - 1];
-
-        int newIndex = 0;
-
-        for (int i = 0; i < storedMessages.length; i++) {
-            if (i != foundIndex) {
-                updatedMessages[newIndex] = storedMessages[i];
-                newIndex++;
-            }
-        }
-
-        storedMessages = updatedMessages;
-
-        try {
-            Gson gson = new GsonBuilder()
-                    .setPrettyPrinting()
-                    .create();
-
-            Files.writeString(
-                    jsonFile,
-                    gson.toJson(storedMessages),
-                    StandardCharsets.UTF_8
-            );
-
-            rebuildIndexes();
-
-            return "Message: \"" + deletedMessage
-                    + "\" successfully deleted.";
-
-        } catch (IOException e) {
-            return "Unable to update the JSON file: " + e.getMessage();
+    for (int i = 0; i < storedMessages.length; i++) {
+        if (storedMessages[i].getMessageHash()
+                .equalsIgnoreCase(messageHash)) {
+            foundIndex = i;
+            break;
         }
     }
 
-    // Displays the full report of sent and stored messages.
+    if (foundIndex == -1) {
+        return "Message hash not found.";
+    }
+
+    String deletedMessage = storedMessages[foundIndex].getMessage();
+
+    Message[] updatedMessages =
+            new Message[storedMessages.length - 1];
+
+    int newIndex = 0;
+
+    for (int i = 0; i < storedMessages.length; i++) {
+        if (i != foundIndex) {
+            updatedMessages[newIndex] = storedMessages[i];
+            newIndex++;
+        }
+    }
+
+    try {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+
+        Files.writeString(
+                jsonFile,
+                gson.toJson(updatedMessages),
+                StandardCharsets.UTF_8
+        );
+
+        storedMessages = updatedMessages;
+        rebuildIndexes();
+
+        return "Message: \"" + deletedMessage
+                + "\" successfully deleted.";
+
+    } catch (IOException e) {
+        return "Unable to update the JSON file: " + e.getMessage();
+    }
+}
+
+
+        
+                
+    
+
+    
     public String displayMessageReport() {
         StringBuilder report = new StringBuilder();
 
