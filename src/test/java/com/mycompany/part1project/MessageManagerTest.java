@@ -1,5 +1,5 @@
 package com.mycompany.part1project;
-
+import java.util.Arrays;
 import java.nio.file.Path;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -149,6 +149,27 @@ void deletedMessageIsAlsoRemovedFromJSONFile() {
     assertEquals(
             "Ok, I am leaving without you.",
             reloadedManager.getStoredMessages()[0].getMessage()
+    );
+}
+@Test
+void deletedMessageIsRemovedFromStoredMessagesAndIndexes() {
+    manager.deleteMessageByHash(message2.getMessageHash());
+
+    assertEquals(1, manager.getStoredMessages().length);
+
+    assertEquals(
+            "Ok, I am leaving without you.",
+            manager.getStoredMessages()[0].getMessage()
+    );
+
+    assertFalse(
+            Arrays.asList(manager.getMessageIDs())
+                    .contains(message2.getMessageID())
+    );
+
+    assertFalse(
+            Arrays.asList(manager.getMessageHashes())
+                    .contains(message2.getMessageHash())
     );
 }
 }
