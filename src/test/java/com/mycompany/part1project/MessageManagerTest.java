@@ -136,4 +136,19 @@ class MessageManagerTest {
         assertTrue(result.contains("Sender: 0838884567"));
         assertTrue(result.contains("Recipient: +27838884567"));
     }
+    @Test
+void deletedMessageIsAlsoRemovedFromJSONFile() {
+    manager.deleteMessageByHash(message2.getMessageHash());
+
+    MessageManager reloadedManager = new MessageManager(
+            tempDir.resolve("messages.json")
+    );
+
+    assertEquals(1, reloadedManager.getStoredMessages().length);
+
+    assertEquals(
+            "Ok, I am leaving without you.",
+            reloadedManager.getStoredMessages()[0].getMessage()
+    );
+}
 }
