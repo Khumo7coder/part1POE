@@ -200,8 +200,8 @@ public class Main {
                             manager.addDisregardedMessage(message);
 
                         } else if (choice.equals("3")) {
-                            manager.loadStoredMessages();
-                        }
+    System.out.println(manager.storeMessage(message));
+}
                     }
 
                     System.out.println(
