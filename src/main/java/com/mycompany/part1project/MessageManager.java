@@ -96,6 +96,35 @@ public class MessageManager {
         }
     }
 
+    // Stores a message in the JSON file.
+public String storeMessage(Message message) {
+    storedMessages = addMessage(storedMessages, message);
+
+    try {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+
+        Files.writeString(
+                jsonFile,
+                gson.toJson(storedMessages),
+                StandardCharsets.UTF_8
+        );
+
+        rebuildIndexes();
+
+        return "Message successfully stored.";
+
+    } catch (IOException e) {
+        storedMessages = Arrays.copyOf(
+                storedMessages, storedMessages.length - 1
+        );
+
+        rebuildIndexes();
+
+        return "Unable to store message: " + e.getMessage();
+    }
+}
     private void rebuildIndexes() {
         messageIDs = new String[0];
         messageHashes = new String[0];
